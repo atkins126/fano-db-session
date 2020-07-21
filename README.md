@@ -27,7 +27,7 @@ $ mysql -u root -p
 mysql> CREATE DATABASE fano_sess_db;
 mysql> GRANT ALL PRIVILEGES ON fano_sess_db.* TO fano_sess_db@localhost IDENTIFIED BY 'fano_sess_db';
 mysql> exit
-$ mysql -u fano_sess_db -p_
+$ mysql -u fano_sess_db -p
 mysql> CREATE TABLE fano_sessions (
      > sess_id VARCHAR(64) NOT NULL PRIMARY KEY,
      > data VARCHAR(300) NOT NULL,
