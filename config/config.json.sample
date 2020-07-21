@@ -10,9 +10,18 @@
         "dir" : "/home/zamroni/fun/fanoframework/examples/fano-db-session/storages/sessions/"
     },
 
+    "db" : {
+        "version" : "mysql 5.7",
+        "host" : "127.0.0.1",
+        "port" : 3306,
+        "db" : "fano_sess_db",
+        "user" : "fano_sess_db",
+        "passw" : "fano_sess_db"
+    },
+
     "cookie" : {
         "name" : "fano_sess",
-        "domain" : "myapp.fano",
+        "domain" : "sessdb.fano",
         "maxAge" : 3600
     }
 }
