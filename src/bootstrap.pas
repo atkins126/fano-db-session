@@ -89,12 +89,6 @@ uses
                 ctnr['db'] as IRdbms,
                 config.getString('session.name')
             ).sessionIdColumn('sess_id')
-            // TCookieSessionManagerFactory.create(
-            //     TJsonSessionFactory.create(),
-            //     ctnr['encrypter'] as IEncrypter,
-            //     ctnr['encrypter'] as IDecrypter,
-            //     config.getString('session.name')
-            // )
         );
 
         ctnr.add(

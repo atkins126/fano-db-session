@@ -1,6 +1,6 @@
-# SCGI Fano Web Framework Skeleton Application
+# Session storage database example project
 
-[SCGI](https://python.ca/scgi/protocol.txt) web application skeleton using Fano Framework, Pascal web application framework
+This project demonstrates how to use session that is stored in MySQL database.
 
 This project is generated using [Fano CLI](https://github.com/fanoframework/fano-cli)
 command line tools to help scaffolding web application using Fano Framework.
@@ -12,21 +12,52 @@ command line tools to help scaffolding web application using Fano Framework.
 - Web Server ([Apache with mod_proxy_scgi](https://httpd.apache.org/docs/current/mod/mod_proxy_scgi.html), nginx)
 - [Fano CLI](https://github.com/fanoframework/fano-cli)
 - Web Server (Apache, nginx)
+- MySQL database
 - Administrative privilege for setting up virtual host
 
 ## Installation
 
 ### TLDR
-Make sure all requirements are met. Run
+Make sure all requirements are met.
+
+We create database structure, for example
+
 ```
-$ git clone https://your-repo-hostname/fano-app.git --recursive
-$ cd fano-app
+$ mysql -u root -p
+mysql> CREATE DATABASE fano_sess_db;
+mysql> GRANT ALL PRIVILEGES ON fano_sess_db.* TO fano_sess_db@localhost IDENTIFIED BY 'fano_sess_db';
+mysql> exit
+$ mysql -u fano_sess_db -p_
+mysql> CREATE TABLE fano_sessions (
+     > sess_id VARCHAR(64) NOT NULL PRIMARY KEY,
+     > data VARCHAR(300) NOT NULL,
+     > expired_at DATETIME NOT NULL);
+```
+
+Run
+```
+$ git clone https://github.com/fanoframework/fano-db-session.git --recursive
+$ cd fano-db-session
 $ ./tools/config.setup.sh
 $ ./build.sh
-$ sudo fanocli --deploy-scgi=fano-app.fano
+$ sudo fanocli --deploy-scgi=sessdb.fano
+```
+Edit `config/config.json` and set database credential where session will be stored
+```
+    "db" : {
+        "version" : "mysql 5.7",
+        "host" : "127.0.0.1",
+        "port" : 3306,
+        "db" : "fano_sess_db",
+        "user" : "fano_sess_db",
+        "passw" : "fano_sess_db"
+    },
+```
+Run application
+```
 $ ./bin/app.cgi
 ```
-Open internet browser and go to `http://fano-app.fano`. You should see application.
+Open internet browser and go to `http://sessdb.fano`. You should see application.
 
 ### Free Pascal installation
 
@@ -38,7 +69,7 @@ If you see something like `Free Pascal Compiler version 3.0.4`,  you are good to
 
 Clone this repository
 
-    $ git clone https://your-repo-hostname/fano-app.git --recursive
+    $ git clone https://github.com/fanoframework/fano-db-session.git --recursive
 
 `--recursive` is needed so git also pull [Fano](https://github.com/fanoframework/fano) repository.
 
